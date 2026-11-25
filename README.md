@@ -6,6 +6,8 @@ Calculadora de riesgo para swing trading con cuatro módulos: Posición, Plan, S
 
 Ejecuta `node --test finance.test.cjs`.
 
-## Cloudflare Pages
+## Cloudflare
 
-Importa este repositorio como proyecto de Pages con la rama `main`, sin framework, directorio raíz por defecto, comando de compilación `exit 0` y directorio de salida `dist`. No se necesitan dependencias ni variables de entorno.
+La configuración de Wrangler está en `wrangler.jsonc` y sirve los archivos estáticos de `public/`. Desde la raíz del repositorio, ejecuta `npx wrangler dev` para previsualizar o `npx wrangler deploy` para desplegar como Worker.
+
+Para importar el repositorio en Cloudflare Pages, selecciona la rama `main`, ningún framework, `exit 0` como comando de compilación y `public` como directorio de salida.

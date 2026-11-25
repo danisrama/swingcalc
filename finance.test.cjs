@@ -1,6 +1,6 @@
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
-const { parse, position, atrStop, operationPlan, expectancy } = require("./dist/finance.js");
+const { parse, position, atrStop, operationPlan, expectancy } = require("./public/finance.js");
 
 const close = (value, expected) => assert.ok(Math.abs(value - expected) < 1e-9);
 const order = { capital: 10000, cash: 10000, risk: .75, entry: 25, stop: 24.35, target: 25.75, fx: 1 };
