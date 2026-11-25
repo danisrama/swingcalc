@@ -301,7 +301,12 @@ dialog.addEventListener("close", () => {
 mount();
 
 if ("serviceWorker" in navigator && window.isSecureContext) {
-  navigator.serviceWorker.register("./sw.js").then(() => navigator.serviceWorker.ready).then(() => {
-    document.querySelector("#offline").textContent = "Disponible sin conexión";
-  }).catch(() => {});
+  function showOfflineStatus() {
+    if (navigator.serviceWorker.controller) {
+      document.querySelector("#offline").textContent = "Disponible sin conexión";
+    }
+  }
+  navigator.serviceWorker.addEventListener("controllerchange", showOfflineStatus);
+  navigator.serviceWorker.register("./sw.js", { updateViaCache: "none" })
+    .then(showOfflineStatus).catch(() => {});
 }
