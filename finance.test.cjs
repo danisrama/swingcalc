@@ -94,6 +94,11 @@ test("ATR chart sizes every scenario independently and shows stop losses below z
   close(narrow.outcomes["4"], 125);
   close(narrow.outcomes["2r"], 150);
   close(narrow.outcomes.loss, -75);
+  close(narrow.ratios["3"], 1.25);
+  close(wide.ratios["3"], 0.625);
+  close(wide.ratios["2r"], 2);
+  assert.equal(wide.ratios.loss, -1);
+  close(wide.twoRMove, 9.6);
   assert.equal(wide.stop, 23.8);
   assert.equal(wide.shares, 62);
   close(wide.outcomes.loss, -74.4);

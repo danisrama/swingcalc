@@ -95,6 +95,8 @@ const SwingFinance = (() => {
     if (!selected || !Number.isSafeInteger(selected.shares)) return null;
     return {
       atr, stop: selected.stop, shares: selected.shares,
+      ratios: Object.fromEntries([...targets.map(({ id, ratio }) => [id, ratio]), ["loss", -1]]),
+      twoRMove: targets.find(({ id }) => id === "2r")?.returnRate,
       outcomes: Object.fromEntries([
         ...targets.map(({ id, profit }) => [id, profit]),
         ["loss", selected.loss ? -selected.loss : 0],

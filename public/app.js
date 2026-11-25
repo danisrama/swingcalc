@@ -2,7 +2,7 @@
 
 const defaults = {
   planEntry: "25", planAtr: "0,30", planMultiplier: "2", planSupport: "", supportMargin: "0,5",
-  resistance: "", minimumRatio: "", planStop: "atr", planTarget: "3",
+  resistance: "", minimumRatio: "", planStop: "atr", planTarget: "3", atrChartUnit: "eur",
   capital: "10.000", cash: "10.000", risk: "0,75", entry: "25", stop: "24,35", target: "25,75",
   currency: "EUR", fx: "", atrEntry: "25", atrValue: "0,45", multiplier: "2", support: "",
   averageSize: "2.500", winRate: "75", averageWin: "2,5", averageLoss: "3", trades: "8", fee: "0",
@@ -105,7 +105,8 @@ function mount() {
     + model.metrics.map(([key, label, , tone]) => '<div><dt>' + label + '</dt><dd class="' + (tone || "") + '" data-result="' + key + '">—</dd></div>').join("")
     + '</dl>' + (active === "plan" ? '<button class="plan-transfer" type="button" disabled>Usar en Posición</button>' : "")
     + '<p class="note">' + model.note + '</p></section></div>'
-    + (active === "plan" ? '<section class="atr-chart" id="atr-chart" aria-labelledby="atr-chart-title"></section>' : "");
+    + (active === "plan" ? '<section class="atr-chart" id="price-map" aria-labelledby="price-map-title"></section>'
+      + '<section class="atr-chart" id="atr-chart" aria-labelledby="atr-chart-title"></section>' : "");
   document.querySelectorAll("input, select").forEach(control => {
     control.value = values[control.id];
     control.addEventListener("input", () => {
@@ -170,6 +171,7 @@ function update() {
     if (input.resistance <= input.planEntry) invalidate("resistance", "La resistencia debe quedar por encima de la entrada.");
   }
   let result;
+  let plan;
   let message = "";
   if (!errors.length) {
     if (active === "position") {
@@ -186,7 +188,7 @@ function update() {
         }
       }
     } else if (active === "plan") {
-      const plan = SwingFinance.operationPlan({ ...input, entry: input.planEntry }, values.planStop);
+      plan = SwingFinance.operationPlan({ ...input, entry: input.planEntry }, values.planStop);
       result = renderPlan(plan, input);
       if (!plan.selected) {
         errors.push(input.planAtr || input.planSupport
@@ -215,8 +217,16 @@ function update() {
     }
   }
   if (active === "plan") {
-    SwingChart.render(document.querySelector("#atr-chart"), errors.length ? {} : {
-      ...input, entry: input.planEntry, currency: values.currency,
+    const scenario = errors.length ? {} : { ...input, entry: input.planEntry, currency: values.currency };
+    const targetId = (plan?.targets.find(candidate => candidate.id === values.planTarget) || plan?.targets[0])?.id;
+    SwingChart.renderPriceMap(document.querySelector("#price-map"), scenario, plan, targetId);
+    SwingChart.render(document.querySelector("#atr-chart"), scenario, {
+      unit: values.atrChartUnit,
+      targetId,
+      saveUnit(unit) {
+        values.atrChartUnit = unit;
+        save();
+      },
     });
   }
   const status = document.querySelector(".status");

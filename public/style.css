@@ -88,3 +88,27 @@ dialog h2{font-size:1.2rem;margin-bottom:7px}
 .plan-options button[data-choice="planTarget"] strong::before{margin-right:.45em}
 .chart-readout output{color:var(--series);font-family:var(--mono)}
 @media(min-width:720px){.atr-chart{margin-top:18px;padding:20px}}
+
+[data-series="entry"]{--series:var(--text)}
+[data-series="support"]{--series:#87dacf}
+[data-series="resistance"]{--series:#eeb28c}
+.price-map-plot{display:block;width:100%;max-height:155px;margin:10px 0 4px}
+.price-map-plot line{vector-effect:non-scaling-stroke}
+.price-map-plot g{cursor:pointer}
+.price-map-plot g line{stroke:var(--series);opacity:.65}
+.price-map-plot circle{fill:var(--series)}
+.price-map-plot circle.map-hit{fill:transparent}
+.price-map-plot .is-active circle:not(.map-hit){stroke:var(--text);stroke-width:2px}
+.map-levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:6px}
+.map-levels button,.chart-units button{min-height:44px;padding:5px 8px;border:1px solid var(--edge);border-radius:6px;background:#14161b;color:var(--text);font-size:.875rem}
+.map-levels button{text-align:left}
+.map-levels button span,.map-levels button strong{display:block}
+.map-levels button span{color:var(--series)}
+.map-levels button strong{font: .82rem var(--mono)}
+.map-levels button[aria-pressed=true]{border-color:var(--series);background:#26282e}
+.chart-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.chart-units{display:flex;gap:4px}
+.chart-units button{min-width:44px}
+.chart-units button[aria-pressed=true]{border-color:#574732;color:var(--gold);background:#302a22}
+.chart-threshold{stroke:var(--gold);stroke-width:1.25;stroke-dasharray:6 3}
+.chart-threshold-note{color:var(--gold);font-size:.875rem;margin-top:8px}
