@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14161a">
+<meta name="description" content="Calculadora local de riesgo para swing trading.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link rel="icon" href="./icon-192.png">
+<link rel="stylesheet" href="./style.css">
+<title>SwingCalc</title>
+<script src="./finance.js" defer></script>
+<script src="./app.js" defer></script>
+</head>
+<body>
+<main>
+<header class="brand">
+<div class="mark" aria-hidden="true">÷</div>
+<div><h1>SwingCalc</h1><p>Calculadora de riesgo</p></div>
+<button id="reset" type="button">Restablecer</button>
+</header>
+<nav aria-label="Calculadoras">
+<button type="button" data-tab="position" aria-pressed="true">Posición</button>
+<button type="button" data-tab="plan" aria-pressed="false">Plan</button>
+<button type="button" data-tab="atr" aria-pressed="false">Stop ATR</button>
+<button type="button" data-tab="expectancy" aria-pressed="false">Esperanza</button>
+</nav>
+<div id="workspace"></div>
+<footer><span id="storage">Guardado en este dispositivo</span><span id="offline">Cálculos locales</span></footer>
+</main>
+<dialog id="reset-dialog">
+<form method="dialog"><h2>Restablecer valores</h2><p>Se recuperarán los valores iniciales de todas las calculadoras.</p>
+<div class="dialog-actions"><button value="cancel" autofocus>Cancelar</button><button value="confirm">Restablecer</button></div></form>
+</dialog>
+</body>
+</html>
