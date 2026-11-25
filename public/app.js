@@ -104,7 +104,8 @@ function mount() {
     + '<p class="status" role="status"></p><dl>'
     + model.metrics.map(([key, label, , tone]) => '<div><dt>' + label + '</dt><dd class="' + (tone || "") + '" data-result="' + key + '">—</dd></div>').join("")
     + '</dl>' + (active === "plan" ? '<button class="plan-transfer" type="button" disabled>Usar en Posición</button>' : "")
-    + '<p class="note">' + model.note + '</p></section></div>';
+    + '<p class="note">' + model.note + '</p></section></div>'
+    + (active === "plan" ? '<section class="atr-chart" id="atr-chart" aria-labelledby="atr-chart-title"></section>' : "");
   document.querySelectorAll("input, select").forEach(control => {
     control.value = values[control.id];
     control.addEventListener("input", () => {
@@ -212,6 +213,11 @@ function update() {
     } else {
       result = SwingFinance.expectancy(input);
     }
+  }
+  if (active === "plan") {
+    SwingChart.render(document.querySelector("#atr-chart"), errors.length ? {} : {
+      ...input, entry: input.planEntry, currency: values.currency,
+    });
   }
   const status = document.querySelector(".status");
   status.textContent = errors[0] || message;

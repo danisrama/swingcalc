@@ -81,3 +81,23 @@ test("Operation plan compares stops and targets and preserves transferred prices
     assert.equal(transferred.loss, candidate.loss);
   }
 });
+
+test("ATR chart sizes every scenario independently and shows stop losses below zero", () => {
+  const { atrScenario } = require("./public/finance.js");
+  const input = { ...order, planMultiplier: 2, planSupport: 24.9, supportMargin: 0.5 };
+  const narrow = atrScenario(input, 0.3);
+  const wide = atrScenario(input, 0.6);
+  assert.equal(narrow.stop, 24.4);
+  assert.equal(narrow.shares, 125);
+  close(narrow.outcomes["2"], 62.5);
+  close(narrow.outcomes["3"], 93.75);
+  close(narrow.outcomes["4"], 125);
+  close(narrow.outcomes["2r"], 150);
+  close(narrow.outcomes.loss, -75);
+  assert.equal(wide.stop, 23.8);
+  assert.equal(wide.shares, 62);
+  close(wide.outcomes.loss, -74.4);
+  close(wide.outcomes["2r"], -2 * wide.outcomes.loss);
+  assert.equal(atrScenario({ ...input, cash: 50 }, 0.3).shares, 2);
+  assert.equal(atrScenario(input, 12.5), null);
+});

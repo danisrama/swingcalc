@@ -88,6 +88,20 @@ const SwingFinance = (() => {
     return { stops, selected, targets };
   }
 
+  function atrScenario(input, atr) {
+    const { selected, targets } = operationPlan({
+      ...input, planAtr: atr, planSupport: undefined,
+    }, "atr");
+    if (!selected || !Number.isSafeInteger(selected.shares)) return null;
+    return {
+      atr, stop: selected.stop, shares: selected.shares,
+      outcomes: Object.fromEntries([
+        ...targets.map(({ id, profit }) => [id, profit]),
+        ["loss", selected.loss ? -selected.loss : 0],
+      ]),
+    };
+  }
+
   function expectancy({ capital, averageSize, winRate, averageWin, averageLoss, trades, fee }) {
     const win = averageSize * averageWin / 100;
     const loss = averageSize * averageLoss / 100;
@@ -101,7 +115,7 @@ const SwingFinance = (() => {
     };
   }
 
-  return { parse, position, atrStop, operationPlan, expectancy };
+  return { parse, position, atrStop, operationPlan, atrScenario, expectancy };
 })();
 
 if (typeof module !== "undefined") module.exports = SwingFinance;

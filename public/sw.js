@@ -1,7 +1,7 @@
 "use strict";
 
-const cacheName = "swingcalc-shell-v4";
-const shell = ["./", "./style.css", "./app.js", "./finance.js",
+const cacheName = "swingcalc-shell-v5";
+const shell = ["./", "./style.css", "./app.js", "./finance.js", "./plan-chart.js",
   "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 const scope = new URL(self.registration.scope);
 const home = scope.href;

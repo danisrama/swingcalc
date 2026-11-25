@@ -61,3 +61,30 @@ dialog h2{font-size:1.2rem;margin-bottom:7px}
 .plan-transfer{margin-top:12px;width:100%;color:var(--gold)}
 .plan-transfer:disabled{opacity:.5;cursor:default}
 @media(max-width:380px){nav{gap:3px}nav button{padding-inline:2px;font-size:.82rem}}
+
+.atr-chart{margin-top:12px;padding:15px;border:1px solid var(--edge);border-radius:12px;background:var(--panel)}
+.atr-chart h3{font-size:1rem}
+.chart-help,.chart-details{font-size:.875rem;color:var(--muted);margin-top:6px}
+.chart-plot{width:100%;max-height:380px;display:block;margin-top:12px;touch-action:pan-y}
+.chart-plot text{fill:var(--muted);font:12px var(--mono)}
+.chart-plot line,.chart-plot path{vector-effect:non-scaling-stroke}
+.chart-grid{stroke:var(--edge)}
+.chart-zero{stroke:#7e838d}
+.chart-current{stroke:#a9adb6;stroke-dasharray:4 4}
+.chart-cursor{stroke:#adb1ba;opacity:.42}
+[data-series="2"],[data-choice="planTarget"][data-id="2"]{--series:#72c7ee}
+[data-series="3"],[data-choice="planTarget"][data-id="3"]{--series:#93d890}
+[data-series="4"],[data-choice="planTarget"][data-id="4"]{--series:#f8c76e}
+[data-series="2r"],[data-choice="planTarget"][data-id="2r"]{--series:#cba4fa}
+[data-series="loss"]{--series:#f7978e}
+.chart-plot path{fill:none;stroke:var(--series);stroke-width:2;stroke-linejoin:round}
+.chart-plot circle{fill:var(--series);stroke:var(--panel);stroke-width:1}
+.chart-slider{display:flex;align-items:center;gap:12px;font-size:.875rem;margin-top:8px}
+.chart-slider input{appearance:auto;flex:1;box-shadow:none;accent-color:var(--gold)}
+.chart-details{font-family:var(--mono);color:var(--text)}
+.chart-readout{display:flex;flex-wrap:wrap;gap:6px 14px;list-style:none;padding:0;margin:8px 0 0;font-size:.875rem}
+.chart-readout li{display:flex;align-items:baseline;gap:5px}
+.chart-readout li::before,.plan-options button[data-choice="planTarget"] strong::before{content:"";display:inline-block;width:.58em;height:.58em;border-radius:50%;background:var(--series)}
+.plan-options button[data-choice="planTarget"] strong::before{margin-right:.45em}
+.chart-readout output{color:var(--series);font-family:var(--mono)}
+@media(min-width:720px){.atr-chart{margin-top:18px;padding:20px}}

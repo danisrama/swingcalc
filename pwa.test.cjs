@@ -59,7 +59,7 @@ test("The worker installs the browser assets and serves the app offline", async 
   for (const path of ["./", "?origen=icono", "index.html?origen=icono"]) {
     assert.match(String(await fetchThroughWorker(path, "navigate")), /<title>SwingCalc<\/title>/);
   }
-  for (const path of ["app.js", "finance.js", "style.css", "manifest.webmanifest"]) {
+  for (const path of ["app.js", "finance.js", "plan-chart.js", "style.css", "manifest.webmanifest"]) {
     assert.ok((await fetchThroughWorker(path, "same-origin")).length > 0);
   }
   assert.equal(fetchThroughWorker("otra-pagina", "navigate"), undefined);
