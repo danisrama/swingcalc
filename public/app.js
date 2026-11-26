@@ -15,7 +15,7 @@ try {
   for (const key of Object.keys(defaults)) {
     if (typeof saved?.values?.[key] === "string") values[key] = saved.values[key];
   }
-  if (["position", "plan", "atr", "expectancy"].includes(saved?.active)) active = saved.active;
+  if (["position", "plan", "atr", "expectancy", "watch"].includes(saved?.active)) active = saved.active;
 } catch {
   document.querySelector("#storage").textContent = "Guardado local no disponible";
 }
@@ -94,6 +94,7 @@ function mount() {
   document.querySelectorAll("[data-tab]").forEach(button => {
     button.setAttribute("aria-pressed", String(button.dataset.tab === active));
   });
+  if (active === "watch") { SwingWatch.mount(document.querySelector("#workspace"), (entry, stop, target, currency) => { Object.assign(values, {entry, stop, target, currency, fx: currency === values.currency ? values.fx : ""}); active = "position"; save(); mount(); }); return; }
   document.querySelector("#workspace").innerHTML =
     '<div class="intro"><h2>' + model.title + '</h2><p>' + model.subtitle + '</p></div>'
     + '<div class="deck"><section class="inputs" aria-label="Datos de entrada">'

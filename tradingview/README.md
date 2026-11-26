@@ -1,0 +1,3 @@
+# SwingCalc S01
+
+Prototipo experimental. Copiar signal-engine.pine al editor Pine v6 de TradingView, gráfico H1, añadir al gráfico y crear alerta «Any alert() function call». Usa H4 cerrado; D1 y anchura Bollinger se calculan como contexto, todavía no filtran señales. Retroceso reciente (5 velas), recuperación EMA20 o RSI50, H4 favorable, objetivo fijo 3%, stop mínimo 6 velas menos 0,25 ATR y B/R mínimo 2. Solo señales al cierre. Backtest separado con comisión 0,1% por lado y un tick de deslizamiento, ejecución al cierre simulada; ajustar costes y comprobar sesgos. No validado en compilador Pine ni con datos reales. S02/S03 pendientes. Sin webhook ni ejecución automática. Vigilancia en PWA es local y manual; no sincroniza con TradingView.

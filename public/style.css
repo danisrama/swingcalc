@@ -112,3 +112,5 @@ dialog h2{font-size:1.2rem;margin-bottom:7px}
 .chart-units button[aria-pressed=true]{border-color:#574732;color:var(--gold);background:#302a22}
 .chart-threshold{stroke:var(--gold);stroke-width:1.25;stroke-dasharray:6 3}
 .chart-threshold-note{color:var(--gold);font-size:.875rem;margin-top:8px}
+
+nav{grid-template-columns:repeat(auto-fit,minmax(85px,1fr))}.watch-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.watch-actions button,.watch-actions a{background:var(--panel);color:var(--gold);border:1px solid var(--edge);border-radius:6px;padding:10px;text-decoration:none}.watch-list{display:grid;gap:10px;margin-top:14px}.watch-list article{border:1px solid var(--edge);padding:12px;border-radius:8px}.watch-list p{overflow-wrap:anywhere}.watch-note{color:var(--muted);font-size:.85rem;margin:10px 0}

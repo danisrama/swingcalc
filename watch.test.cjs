@@ -1,0 +1,1 @@
+const assert=require('node:assert/strict');const {maxEntry}=require('./public/watch.js');assert.ok(Math.abs(maxEntry(2.865,3,2)-2.91)<1e-10);assert.ok(Number.isNaN(maxEntry(3,2,2)));assert.ok(Number.isNaN(maxEntry(2,3,0)));console.log('watch OK');

@@ -1,0 +1,28 @@
+//@version=6
+indicator("SwingCalc S01 - Retroceso alcista", overlay=true)
+if timeframe.in_seconds() != 3600
+    runtime.error("Usar gráfico H1")
+[e4,m4,m4prev] = request.security(syminfo.tickerid,"240",[ta.ema(close,20)[1],ta.sma(close,50)[1],ta.sma(close,50)[2]],lookahead=barmerge.lookahead_on)
+[eD,mD] = request.security(syminfo.tickerid,"D",[ta.ema(close,20)[1],ta.sma(close,50)[1]],lookahead=barmerge.lookahead_on)
+e=ta.ema(close,20)
+m=ta.sma(close,50)
+r=ta.rsi(close,14)
+a=ta.atr(14)
+[b,u,l]=ta.bb(close,20,2)
+bw=(u-l)/b
+favorable=e4>m4 and m4>m4prev
+near=low<=e+0.25*a and close>=m-a
+recent=ta.barssince(near)
+recovery=ta.crossover(close,e) or ta.crossover(r,50)
+signal=favorable and recent<=5 and close>e and r>50 and recovery
+stop=ta.lowest(low,6)-0.25*a
+target=close*1.03
+rr=stop>0 and stop<close?(target-close)/(close-stop):na
+valid=signal and rr>=2
+plot(e,"EMA20",color=color.fuchsia)
+plot(m,"MA50",color=color.teal)
+plot(u,"BB superior",color=color.blue)
+plot(l,"BB inferior",color=color.blue)
+plotshape(valid and barstate.isconfirmed,title="Candidato S01",style=shape.triangleup,location=location.belowbar,color=color.green)
+if valid and barstate.isconfirmed
+    alert(syminfo.tickerid+" S01 | Entrada "+str.tostring(close,format.mintick)+" | Stop "+str.tostring(stop,format.mintick)+" | Objetivo "+str.tostring(target,format.mintick)+" | B/R "+str.tostring(rr,"#.##"),alert.freq_once_per_bar_close)
